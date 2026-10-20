@@ -47,6 +47,8 @@ public class Product {
 
     private Integer stockQuantity;
 
+    @Column(columnDefinition = "TEXT")
+
     private String imgUrl;
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
