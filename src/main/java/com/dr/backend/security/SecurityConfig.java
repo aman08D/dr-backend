@@ -31,22 +31,18 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configure(http))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth ->
-                        auth
-                                // 1. Login open for everyone
-                                .requestMatchers("/api/users/login").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        // 1. Login open for everyone
+                        .requestMatchers("/api/users/login").permitAll()
 
-                                // 2. All GET requests (viewing products, doctors, workers, events) are public
-                                .requestMatchers(HttpMethod.GET, "/**").permitAll()
+                        // 2. Allow ALL methods (GET, POST, PUT, DELETE) for Products API
+                        .requestMatchers("/api/products/**").permitAll()
 
-                                // 3. Customer Enquiry / Booking Form is public
-                                .requestMatchers(HttpMethod.POST, "/api/bookings").permitAll()
+                        // 3. Allow GET for everything else
+                        .requestMatchers(HttpMethod.GET, "/**").permitAll()
 
-                                // 4. EVERYTHING ELSE (POST, PUT, DELETE) REQUIRES TOKEN
-                                .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
-
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
