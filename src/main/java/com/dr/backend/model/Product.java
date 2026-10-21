@@ -45,6 +45,8 @@ public class Product {
 
     private Boolean isCustomizable;
 
+    private Double offerPrice;
+
     private Integer stockQuantity;
 
     @Column(columnDefinition = "TEXT")
