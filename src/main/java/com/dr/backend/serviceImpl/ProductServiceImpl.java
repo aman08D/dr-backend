@@ -26,6 +26,25 @@ public class ProductServiceImpl  implements ProductService {
     }
 
     @Override
+    public Product updateProduct(Product product) {
+
+        if (product.getId() == null) {
+            throw new IllegalArgumentException("Product ID is required for update operation");
+        }
+
+        // 2. Default Values & Validation Check
+        if (product.getIsAvailable() == null) {
+            product.setIsAvailable(true);
+        }
+        if (product.getPrice() != null && product.getPrice() < 0) {
+            throw new IllegalArgumentException("Price can't be negative");
+        }
+
+        // 3. Save directly updates existing record because ID is present
+        return productsRepo.save(product);
+    }
+
+    @Override
     public List<Product> getAllProducts() {
 
         return productsRepo.findAll();

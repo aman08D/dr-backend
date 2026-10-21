@@ -22,6 +22,15 @@ public class ProductController {
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+        // URL ki ID ko product object mein set kar dete hain (extra safety ke liye)
+        product.setId(id);
+
+        Product updated = productService.updateProduct(product);
+        return new ResponseEntity<>(updated, HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
