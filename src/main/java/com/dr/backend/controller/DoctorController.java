@@ -23,7 +23,7 @@ public class DoctorController {
         return new ResponseEntity<>(saved, HttpStatus.CREATED);}
 
     @PutMapping("/{id}")
-    public ResponseEntity<Doctor> updateDoctor(@RequestParam Long id,@RequestBody Doctor doctor){
+    public ResponseEntity<Doctor> updateDoctor(@PathVariable Long id,@RequestBody Doctor doctor){
         doctor.setId(id);
         doctorService.updateDoctor(doctor);
         return  new ResponseEntity<>(HttpStatus.CREATED);
