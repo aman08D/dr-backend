@@ -22,7 +22,7 @@ public class DoctorController {
         Doctor saved = doctorService.addDoctor(doctor);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);}
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Doctor> updateDoctor(@RequestParam Long id,@RequestBody Doctor doctor){
         doctor.setId(id);
         doctorService.updateDoctor(doctor);
