@@ -25,6 +25,15 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public Doctor updateDoctor(Doctor doctor) {
+        if(doctor.getId()==null){
+            throw new IllegalArgumentException("Product ID is required for update operation");
+        }
+
+        return doctorRepository.save(doctor);
+    }
+
+    @Override
     public List<Doctor> getAllDoctors() {
         return doctorRepository.findAll();
     }
